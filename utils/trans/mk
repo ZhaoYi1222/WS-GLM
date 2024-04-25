@@ -1,0 +1,13 @@
+set -x
+rm -rf benchmark
+rm -rf *.o
+rm -rf *.a
+swgcc -msimd -Iinclude/ -mieee -g -w -O2 -fPIC -mslave -c sw_slave_hf_trans.c
+swgcc -msimd -Iinclude/ -mieee -g -w -O2 -fPIC -mslave -c trans_datatype.c 
+swgcc -msimd -Iinclude/ -mieee -g -w -O2 -fPIC -mhost -c sw_hf_trans.c
+swgcc -msimd -Iinclude/ -mieee -g -w -O2 -fPIC -mhost -c main.c
+
+swgcc sw_slave_hf_trans.o trans_datatype.o sw_hf_trans.o main.o -o benchmark -mdynamic -lm -Wl,-zmuldefs
+#sw9ar rcs libhf_trans.a sw_hf_trans.o sw_slave_hf_trans.o trans_datatype.o
+
+
