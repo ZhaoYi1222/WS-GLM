@@ -1,1 +1,1 @@
-# SU-LCM
+# WS-GLM code
